@@ -1,6 +1,3 @@
-import { save } from "./modules/save.js";
-import { load } from "./modules/save.js";
+import { startingPage } from "./modules/startingPage.js";
 
-let dataKanban = [];
-const kanbanLocalSave = "tableauKanban";
-("");
+startingPage();
