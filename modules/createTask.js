@@ -41,4 +41,5 @@ export function createTask(listElement) {
 	task.addEventListener("dragend", () => {
 		task.classList.remove("dragging");
 	});
+	console.log(task);
 }
