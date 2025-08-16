@@ -1,9 +1,10 @@
 import { cAAEC, cAAECWP } from "./createAndAddElements.js";
 import { createTask } from "./createTask.js";
-import { dragAndDrop } from "./dragAndDrop.js";
+import { dragAndDropTask } from "./dragAndDrop.js";
 
 export function createList(lists) {
 	const addNewList = cAAEC("div", "newList", "", lists);
+	addNewList.setAttribute("draggable", true);
 	const divCol = cAAEC("div", "divCol", "", addNewList);
 	const listTitle = cAAEC("h3", "listTitle", "Sans titre", divCol);
 	const deleteList = cAAECWP("button", "deleteList", "🗑 Supprimer la liste"); //reminder : à créer sans parents pour ne pas s'afficher lors de la création de la liste (comme ça on peut directement supprimer l'enfant avec appendChild et removeChild plus tard)
@@ -62,14 +63,26 @@ export function createList(lists) {
 		createTask(divTask);
 	});
 
+	addNewList.addEventListener("dragstart", (e) => {
+		e.dataTransfer.setData("type", "list");
+		addNewList.classList.add("draggingList");
+	});
+
+	addNewList.addEventListener("dragend", () => {
+		addNewList.classList.remove("draggingList");
+	});
+
 	divTask.addEventListener("dragover", (e) => {
 		e.preventDefault();
+
 		const draggingTask = document.querySelector(".dragging");
-		const afterElement = dragAndDrop(divTask, e.clientY);
-		if (afterElement == null) {
-			divTask.appendChild(draggingTask);
-		} else {
+		if (!draggingTask) return;
+
+		const afterElement = dragAndDropTask(divTask, e.clientY);
+		if (afterElement) {
 			divTask.insertBefore(draggingTask, afterElement);
+		} else {
+			divTask.appendChild(draggingTask);
 		}
 	});
 }

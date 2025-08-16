@@ -1,5 +1,7 @@
 import { cAAEC } from "./createAndAddElements.js";
 import { createList } from "./createList.js";
+import { changeBackground } from "./changeBackground.js";
+import { dragAndDropList } from "./dragAndDrop.js";
 
 export function startingPage() {
 	const divHeader = cAAEC("div", "divHeader", "");
@@ -38,4 +40,25 @@ export function startingPage() {
 	btnAddList.addEventListener("click", () => {
 		createList(lists);
 	});
+
+	lists.addEventListener("dragover", (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+
+		const draggingList = document.querySelector(".draggingList");
+		const draggingTask = document.querySelector(".dragging");
+
+		if (draggingTask) return;
+
+		if (!draggingList) return;
+
+		const afterElement = dragAndDropList(lists, e.clientX);
+		if (afterElement) {
+			lists.insertBefore(draggingList, afterElement);
+		} else {
+			lists.appendChild(draggingList);
+		}
+	});
+
+	changeBackground(divHeader);
 }

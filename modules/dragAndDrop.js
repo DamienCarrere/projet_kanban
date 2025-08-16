@@ -1,17 +1,42 @@
-export function dragAndDrop(container, y) {
+export function dragAndDropTask(container, y) {
 	const draggableElements = [
 		...container.querySelectorAll(".task:not(.dragging)"),
 	];
+	if (draggableElements.length === 0) {
+		return null;
+	}
 	return draggableElements.reduce(
 		(closest, child) => {
 			const box = child.getBoundingClientRect();
 			const offset = y - box.top - box.height / 2;
 			if (offset < 0 && offset > closest.offset) {
 				return { offset: offset, element: child };
-			} else {
-				return closest;
 			}
+			return closest;
 		},
 		{ offset: Number.NEGATIVE_INFINITY }
 	).element;
+}
+
+export function dragAndDropList(container, x) {
+	const elements = [
+		...container.querySelectorAll(".newList:not(.draggingList)"),
+	];
+	if (elements.length === 0) {
+		return null;
+	}
+
+	let closest = null;
+	let closestOffset = Number.NEGATIVE_INFINITY;
+
+	for (const el of elements) {
+		const box = el.getBoundingClientRect();
+		const offset = x - box.left - box.width / 2;
+		if (offset < 0 && offset > closestOffset) {
+			closestOffset = offset;
+			closest = el;
+		}
+	}
+
+	return closest;
 }

@@ -11,6 +11,7 @@ export function createTask(listElement) {
 	// Editer contenu tâche
 	task.addEventListener("click", (e) => {
 		if (e.target === deleteTask) return;
+		if (task.classList.contains("dragging")) return;
 		taskPopup(task, taskContent, taskDate);
 	});
 
@@ -33,13 +34,11 @@ export function createTask(listElement) {
 		task.remove();
 	});
 
-	task.addEventListener("dragstart", (e) => {
-		e.dataTransfer.setData("text/plain", "");
+	task.addEventListener("dragstart", () => {
 		task.classList.add("dragging");
 	});
 
 	task.addEventListener("dragend", () => {
 		task.classList.remove("dragging");
 	});
-	console.log(task);
 }
