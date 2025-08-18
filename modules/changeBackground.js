@@ -26,7 +26,6 @@ export function changeBackground(parent) {
 				document.body.style.backgroundSize = "cover";
 				document.body.style.backgroundPosition = "bottom center";
 				document.body.style.backgroundRepeat = "no-repeat";
-				window.saveState();
 			};
 			reader.readAsDataURL(file);
 		}
