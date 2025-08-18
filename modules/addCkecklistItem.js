@@ -8,7 +8,6 @@ export function addChecklistItem(container, text, checked) {
 	checkbox.checked = checked;
 
 	const span = cAAE("span", text, li);
-	span.textContent = text;
 
 	const btnDelete = cAAE("button", "❌", li);
 	btnDelete.addEventListener("click", () => {
