@@ -19,24 +19,21 @@ export function dragAndDropTask(container, y) {
 }
 
 export function dragAndDropList(container, x) {
-	const elements = [
+	const draggableElements = [
 		...container.querySelectorAll(".newList:not(.draggingList)"),
 	];
-	if (elements.length === 0) {
+	if (draggableElements.length === 0) {
 		return null;
 	}
-
-	let closest = null;
-	let closestOffset = Number.NEGATIVE_INFINITY;
-
-	for (const el of elements) {
-		const box = el.getBoundingClientRect();
-		const offset = x - box.left - box.width / 2;
-		if (offset < 0 && offset > closestOffset) {
-			closestOffset = offset;
-			closest = el;
-		}
-	}
-
-	return closest;
+	return draggableElements.reduce(
+		(closest, child) => {
+			const box = child.getBoundingClientRect();
+			const offset = x - box.left - box.width / 2;
+			if (offset < 0 && offset > closest.offset) {
+				return { offset: offset, element: child };
+			}
+			return closest;
+		},
+		{ offset: Number.NEGATIVE_INFINITY }
+	).element;
 }
