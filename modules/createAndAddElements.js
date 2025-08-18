@@ -64,7 +64,7 @@ export function cAAEID(
 	return elementType;
 }
 // --------------------------- Create And Add Element ID (sans parents)
-export function cAAEID(type, addID, content = "") {
+export function cAAEIDWP(type, addID, content = "") {
 	let elementType = document.createElement(type);
 	elementType.id = addID;
 	elementType.textContent = content;
