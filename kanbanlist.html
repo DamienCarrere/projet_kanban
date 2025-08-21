@@ -7,26 +7,20 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Kanban JS</title>
     <link rel="stylesheet" href="style.css" />
-
+    <script type="module" src="main.js" defer></script>
 </head>
 
 <body>
     <header class="divHeader">
         <h1 class="titleHeader" contenteditable="true">KANBAN BOARD</h1>
+        <button class="buttonHomePage" id="btnAddList" aria-label="Ajouter une liste">➕ Ajouter une liste</button>
+        <button class="buttonHomePage" id="changeBackground">Changer le fond d'écran</button>
+        <input type="file" id="inputBackground" style="display:none;" accept="image/*">
     </header>
 
-    <main id="homePage">
-        <h2>Bienvenue sur votre Kanban JS !</h2>
-        <p>C'est pas ouf, pas opti à mon humble avis, mais au moins lighthouse me dit que c'est joli 😬 </p>
-        <button id="startButton" class="buttonHomePage">
-            Accéder au Kanban
-        </button>
+    <main>
+        <div class="lists"></div>
     </main>
-    <script>
-        document.getElementById("startButton").addEventListener("click", () => {
-            window.location.href = "kanbanlist.html";
-        });
-    </script>
 </body>
 
 </html>

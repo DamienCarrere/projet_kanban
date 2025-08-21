@@ -5,7 +5,7 @@ import { dragAndDropList } from "./dragAndDrop.js";
 export function startingPage() {
 	const divHeader = document.querySelector(".divHeader");
 	const titleHeader = divHeader.querySelector(".titleHeader");
-	const btnAddList = divHeader.querySelector(".btnAddList");
+	const btnAddList = document.getElementById("btnAddList");
 	const lists = document.querySelector(".lists");
 
 	titleHeader.addEventListener("click", () => {
@@ -43,6 +43,5 @@ export function startingPage() {
 			lists.appendChild(draggingList);
 		}
 	});
-
-	changeBackground(divHeader);
+	changeBackground();
 }

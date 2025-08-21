@@ -1,29 +1,13 @@
-import { makeNode } from "../utils/makeNode.js";
+export function changeBackground() {
+	const changeBackground = document.getElementById("changeBackground");
+	const inputBackground = document.getElementById("inputBackground");
 
-export function changeBackground(parent) {
-	const changeBackground = makeNode({
-		type: "button",
-		className: "changeBackground",
-		content: "Changer le fond d'écran",
-		parent: parent,
-		events: {
-			click: () => {
-				inputFile.click();
-			},
-		},
+	changeBackground.addEventListener("click", () => {
+		inputBackground.click();
 	});
 
-	const inputFile = makeNode({
-		type: "input",
-		attributes: {
-			type: "file",
-			accept: "image/*",
-			style: "display: none",
-		},
-	});
-
-	inputFile.addEventListener("change", () => {
-		const file = inputFile.files[0];
+	inputBackground.addEventListener("change", () => {
+		const file = inputBackground.files[0];
 		if (file) {
 			const reader = new FileReader();
 			reader.onload = function (e) {

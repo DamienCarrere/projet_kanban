@@ -8,6 +8,15 @@ body {
     height: 100vh;
 }
 
+#homePage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    text-align: center;
+}
+
 .divtasks {
     min-height: 10px;
 }
@@ -31,7 +40,7 @@ body {
 }
 
 .newList {
-    background: white;
+    background: #fff;
     border: 3px solid gray;
     border-radius: 6px;
     padding: 10px;
@@ -39,60 +48,78 @@ body {
     flex-shrink: 0;
 }
 
-
 .listTitle {
-    margin: 0 0 8px 0;
+    margin: 0 0 8px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
 }
 
-.btnAddList {
-    padding: 10px 12px;
-    background-color: purple;
-    color: white;
+.buttonHomePage,
+.addTask,
+.popupContent button {
+    cursor: pointer;
     border: none;
+    font-weight: bold;
+    color: #fff;
+    background-color: purple;
+}
+
+.buttonHomePage {
+    padding: 10px 12px;
     border-radius: 100px;
     margin-bottom: 20px;
-    cursor: pointer;
-    font-weight: bold;
 }
 
-.btnAddList:hover {
+.buttonHomePage:hover,
+.popupContent button:hover {
     background-color: darkmagenta;
-}
-
-.deleteList {
-    width: 100%;
-    margin-bottom: 20px;
-    background-color: orange;
-    color: black;
-    padding: 4px 8px;
-    cursor: pointer;
-}
-
-.deleteList:hover {
-    background-color: red;
-    color: white;
 }
 
 .addTask {
     width: 100%;
     padding: 5px;
     margin-bottom: 7px;
-    background-color: purple;
-    color: white;
+    border-radius: 4px;
+}
+
+.deleteList,
+.deleteTask {
+    width: 100%;
+    cursor: pointer;
     border: none;
     border-radius: 4px;
-    cursor: pointer;
     font-weight: bold;
 }
 
-/* ------------------------------------------------------- POPUP ----------------------------------------------------------- */
+.deleteList {
+    margin-bottom: 20px;
+    background-color: orange;
+    color: #000;
+    padding: 4px 8px;
+}
+
+.deleteList:hover {
+    background-color: red;
+    color: #fff;
+}
+
+.deleteTask {
+    margin-top: 4px;
+    background-color: crimson;
+    color: #fff;
+    padding: 4px;
+    font-size: 13px;
+}
+
+.deleteTask:hover {
+    background-color: darkred;
+}
+
+/* ------------------- POPUP ------------------- */
 .popupOverlay {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
@@ -103,7 +130,7 @@ body {
 }
 
 .popupContent {
-    background-color: white;
+    background: #fff;
     padding: 20px;
     border-radius: 8px;
     min-width: 300px;
@@ -122,26 +149,12 @@ body {
 
 .popupContent input[type="text"],
 .popupContent input[type="date"],
-.popupContent input[type="color"] {
+.popupContent input[type="color"],
+.checklistContainer input[type="text"] {
     padding: 6px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-.popupContent button {
-    padding: 8px;
-    border: none;
-    cursor: pointer;
-    background-color: purple;
-    color: white;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
-}
-
-.popupContent button:hover {
-    background-color: darkmagenta;
 }
 
 .task {
@@ -158,6 +171,11 @@ body {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+.task.dragging {
+    opacity: 0.5;
+    background-color: #e0e0e0;
+}
+
 .taskContent {
     margin: 0;
     font-size: 14px;
@@ -171,37 +189,19 @@ body {
     margin-top: 4px;
 }
 
-.deleteTask {
-    width: 100%;
-    margin-top: 4px;
-    background-color: crimson;
-    color: white;
-    padding: 4px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    font-size: 13px;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
-}
-
-.deleteTask:hover {
-    background-color: darkred;
-}
-
-.task.dragging {
-    opacity: 0.5;
-    background-color: #e0e0e0;
-}
-
-
-.checklistPreview {
+.checklistPreview,
+.checklistContainer ul {
     list-style: none;
     padding: 0;
+    margin: 0;
+}
+
+.checklistPreview {
     margin: 6px 0 0;
 }
 
-.checklistPreview li {
+.checklistPreview li,
+.checklistContainer li {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -219,15 +219,7 @@ body {
     font-size: 14px;
 }
 
-.checklistContainer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 8px 0;
-}
-
 .checklistContainer li {
-    display: flex;
-    align-items: center;
     gap: 6px;
     margin-bottom: 4px;
 }
@@ -246,7 +238,6 @@ body {
 .checklistContainer input[type="text"] {
     width: calc(100% - 80px);
     padding: 4px;
-    font-size: 14px;
 }
 
 .checklistContainer button {
@@ -258,19 +249,4 @@ body {
     display: block;
     font-size: 16px;
     margin-top: 4px;
-}
-
-.changeBackground {
-    padding: 10px 12px;
-    background-color: purple;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.changeBackground:hover {
-    background-color: darkmagenta;
 }
