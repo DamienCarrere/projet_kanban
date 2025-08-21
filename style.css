@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-color: #0077ff52;
+    background-color: #0077ff56;
 }
 
 #homePage {
@@ -18,6 +18,7 @@ body {
     text-align: center;
 }
 
+/* ------------------- DIVS + LISTS ------------------- */
 .divtasks {
     min-height: 10px;
 }
@@ -56,6 +57,7 @@ body {
     cursor: pointer;
 }
 
+/* ------------------- BUTTONS ------------------- */
 .buttonHomePage,
 .addTask,
 .popupContent button {
@@ -158,6 +160,7 @@ body {
     border-radius: 4px;
 }
 
+/* ------------------- TASKS ------------------- */
 .task {
     background-color: #f8f8f8;
     border: 3px solid #ddd;
@@ -190,6 +193,7 @@ body {
     margin-top: 4px;
 }
 
+/* ------------------- CHECKLIST ------------------- */
 .checklistPreview,
 .checklistContainer ul {
     list-style: none;
