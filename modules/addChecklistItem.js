@@ -15,6 +15,9 @@ export function addChecklistItem(container, text, checked) {
 		type: "button",
 		content: "❌",
 		parent: li,
+		attributes: {
+			"aria-label": `Bouton pour supprimer la checklist ${text}`,
+		},
 		events: { click: () => container.removeChild(li) },
 	});
 }

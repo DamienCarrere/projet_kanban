@@ -25,8 +25,11 @@ export function createTask(listElement) {
 				}
 			},
 			click: (e) => {
-				if (e.target === deleteTask) return;
-				if (task.classList.contains("dragging")) return;
+				if (
+					e.target === deleteTask ||
+					task.classList.contains("dragging")
+				)
+					return;
 				taskPopup(task, taskContent, taskDate);
 			},
 		},
@@ -43,6 +46,9 @@ export function createTask(listElement) {
 		type: "small",
 		className: "taskDate",
 		parent: task,
+		attributes: {
+			"aria-label": `Bouton pour modifier la date d'échéance de la tâche ${taskContent.textContent}`,
+		},
 	});
 
 	const deleteTask = makeNode({
@@ -50,6 +56,9 @@ export function createTask(listElement) {
 		className: "deleteTask",
 		content: "❌ Supprimer",
 		parent: task,
+		attributes: {
+			"aria-label": `Bouton pour supprimer la tâche ${taskContent.textContent}`,
+		},
 		events: {
 			mousedown: (e) => e.preventDefault(),
 			click: () => task.remove(),
