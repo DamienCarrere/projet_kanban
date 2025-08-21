@@ -7,10 +7,18 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Kanban JS</title>
     <link rel="stylesheet" href="style.css" />
+    <script type="module" src="main.js" defer></script>
 </head>
 
 <body>
-    <script type="module" src="main.js" defer></script>
+    <header class="divHeader">
+        <h1 class="titleHeader" contenteditable="true">KANBAN BOARD</h1>
+        <button class="btnAddList" aria-label="Ajouter une liste">➕ Ajouter une liste</button>
+    </header>
+
+    <main>
+        <div class="lists" aria-label="Listes de tâches"></div>
+    </main>
 </body>
 
 </html>

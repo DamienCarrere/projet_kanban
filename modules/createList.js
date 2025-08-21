@@ -88,10 +88,10 @@ export function createList(lists) {
 				if (!draggingTask) return;
 
 				const afterElement = dragAndDropTask(divTask, e.clientY);
-				if (!afterElement) {
-					divTask.appendChild(draggingTask);
-				} else {
+				if (afterElement) {
 					divTask.insertBefore(draggingTask, afterElement);
+				} else {
+					divTask.appendChild(draggingTask);
 				}
 			},
 		},
@@ -106,7 +106,6 @@ export function createList(lists) {
 		events: { click: () => createTask(divTask) },
 	});
 
-	//Pas obligatoire mais toujours plus ergonomique, on a le focus sur le titre de la liste
 	listTitle.focus();
 	if (!divCol.contains(deleteList)) {
 		divCol.appendChild(deleteList);

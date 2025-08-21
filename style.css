@@ -8,6 +8,10 @@ body {
     height: 100vh;
 }
 
+.divtasks {
+    min-height: 10px;
+}
+
 .divHeader {
     display: flex;
     height: 20%;
