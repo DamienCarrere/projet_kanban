@@ -1,44 +1,59 @@
-import { cAAEC, cAAECWP } from "./createAndAddElements.js";
+import { makeNode } from "../utils/makeNode.js";
 import { taskPopup } from "./taskPopup.js";
 
 export function createTask(listElement) {
-	const task = cAAEC("div", "task", "", listElement);
-	task.setAttribute("draggable", true);
-	const taskContent = cAAEC("p", "taskContent", "Nouvelle tâche", task);
-	const taskDate = cAAEC("small", "taskDate", "", task);
-	const deleteTask = cAAECWP("button", "deleteTask", "❌ Supprimer");
-
-	// Editer contenu tâche
-	task.addEventListener("click", (e) => {
-		if (e.target === deleteTask) return;
-		if (task.classList.contains("dragging")) return;
-		taskPopup(task, taskContent, taskDate);
+	const task = makeNode({
+		type: "div",
+		className: "task",
+		parent: listElement,
+		attributes: { draggable: true },
+		events: {
+			dragstart: () => {
+				task.classList.add("dragging");
+			},
+			dragend: () => {
+				task.classList.remove("dragging");
+			},
+			mouseenter: () => {
+				if (!task.contains(deleteTask)) {
+					task.appendChild(deleteTask);
+				}
+			},
+			mouseleave: () => {
+				if (task.contains(deleteTask)) {
+					task.removeChild(deleteTask);
+				}
+			},
+			click: (e) => {
+				if (e.target === deleteTask) return;
+				if (task.classList.contains("dragging")) return;
+				taskPopup(task, taskContent, taskDate);
+			},
+		},
 	});
 
-	//Afficher bouton (survol de la souris)
-	task.addEventListener("mouseenter", () => {
-		if (!task.contains(deleteTask)) {
-			task.appendChild(deleteTask);
-		}
-	});
-	task.addEventListener("mouseleave", () => {
-		if (task.contains(deleteTask)) {
-			task.removeChild(deleteTask);
-		}
+	const taskContent = makeNode({
+		type: "p",
+		className: "taskContent",
+		content: "Nouvelle tâche",
+		parent: task,
 	});
 
-	// Empecher que le bouton disparaisse en cliquant dessus (focus qui se perd à cause du blur)
-	deleteTask.addEventListener("mousedown", (e) => e.preventDefault());
-	// Supprime
-	deleteTask.addEventListener("click", () => {
-		task.remove();
+	const taskDate = makeNode({
+		type: "small",
+		className: "taskDate",
+		parent: task,
 	});
 
-	task.addEventListener("dragstart", () => {
-		task.classList.add("dragging");
+	const deleteTask = makeNode({
+		type: "button",
+		className: "deleteTask",
+		content: "❌ Supprimer",
+		parent: task,
+		events: {
+			mousedown: (e) => e.preventDefault(),
+			click: () => task.remove(),
+		},
 	});
-
-	task.addEventListener("dragend", () => {
-		task.classList.remove("dragging");
-	});
+	task.removeChild(deleteTask);
 }
